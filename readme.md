@@ -21,6 +21,6 @@ $ sudo ln -s $(pwd)/queue_killer /usr/bin/queue_killer
 
 #### Usage
 ```shell
-$ queue_killer VIRTUAL_HOST;
+$ sudo queue_killer VIRTUAL_HOST;
 ```
 where VIRTUAL_HOST is name of rabbitmq virtual host
