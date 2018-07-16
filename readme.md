@@ -6,13 +6,13 @@ Kills all temp queues with 0 consumers on specific rabbitmq virtual host.
  - [rabbitmqadmin](https://www.rabbitmq.com/management-cli.html)
 
 #### Install
-1. Download script
+you can download script
 ```shell
 $ wget https://raw.githubusercontent.com/yaboroda/queue_killer/master/queue_killer;
 $ chmod ug+x queue_killer;
 $ sudo mv queue_killer /usr/bin/queue_killer;
 ```
-2. Clone repo
+or clone repo
 ```shell
 $ git clone https://github.com/yaboroda/queue_killer;
 $ cd queue_killer/;
