@@ -1,5 +1,5 @@
 ### Queue killer
-Kills all temp queues on specific rabbitmq virtual host.  
+Kills all temp queues with 0 consumers on specific rabbitmq virtual host.  
 
 #### Requirements
  - python 2.7
