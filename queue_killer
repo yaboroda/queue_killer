@@ -1,0 +1,24 @@
+#!/usr/bin/env python2
+
+import sys
+import subprocess
+import re
+import json
+
+VHOST = sys.argv[1]
+
+queuesOutput = subprocess.check_output(
+    ["rabbitmqadmin", "list", "queues", "name", "consumers", "--vhost=%s" % VHOST, "--format=raw_json"],
+    stderr=subprocess.STDOUT,
+)
+
+count = 0
+for queue in json.loads(queuesOutput):
+    if int(queue["consumers"]) == 0 and re.match("^amq.gen", queue["name"]):
+        subprocess.check_call(
+            ["rabbitmqadmin", "delete", "queue", "name=%s" % queue["name"], "--vhost=%s" % VHOST],
+            stderr=subprocess.STDOUT,
+        )
+        count += 1
+
+print "removed %s queues from vhost %s" % (count, VHOST)
