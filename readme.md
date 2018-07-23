@@ -23,6 +23,6 @@ $ sudo ln -s $(pwd)/queue_killer /usr/bin/queue_killer
 ```shell
 $ sudo queue_killer VIRTUAL_HOST [USERNAME] [PASSWORD];
 ```
-VIRTUAL_HOST - name of rabbitmq virtual host
-USERNAME - username with "administrator" access, default value "guest"
-PASSWORD - password, default value "guest"
+VIRTUAL_HOST - name of rabbitmq virtual host  
+USERNAME - username with "administrator" access, default value "guest"  
+PASSWORD - password, default value "guest"  
