@@ -5,20 +5,36 @@ import subprocess
 import re
 import json
 
+if len(sys.argv) < 2:
+    print "usage:"
+    print "queue_killer vhost [username] [password]"
+    exit()
+
 VHOST = sys.argv[1]
+USERNAME = sys.argv[2] if len(sys.argv) >= 3 else 'guest'
+PASSWORD = sys.argv[3] if len(sys.argv) >= 4 else 'guest'
 
-queuesOutput = subprocess.check_output(
-    ["rabbitmqadmin", "list", "queues", "name", "consumers", "--vhost=%s" % VHOST, "--format=raw_json"],
-    stderr=subprocess.STDOUT,
-)
+try:
+    queuesOutput = subprocess.check_output(
+        ["rabbitmqadmin", "list", "queues", "name", "consumers",
+            "--vhost=%s" % VHOST, "--format=raw_json", "--username=%s" % USERNAME,
+            "--password=%s" % PASSWORD],
+        stderr=subprocess.STDOUT,
+    )
 
-count = 0
-for queue in json.loads(queuesOutput):
-    if int(queue["consumers"]) == 0 and re.match("^amq.gen", queue["name"]):
-        subprocess.check_call(
-            ["rabbitmqadmin", "delete", "queue", "name=%s" % queue["name"], "--vhost=%s" % VHOST],
-            stderr=subprocess.STDOUT,
-        )
-        count += 1
+    count = 0
+    for queue in json.loads(queuesOutput):
+        if int(queue["consumers"]) == 0 and re.match("^amq.gen", queue["name"]):
+            subprocess.check_call(
+                ["rabbitmqadmin", "delete", "queue", "name=%s" % queue["name"],
+                    "--vhost=%s" % VHOST, "--username=%s" % USERNAME,
+                    "--password=%s" % PASSWORD],
+                stderr=subprocess.STDOUT,
+            )
+            count += 1
+
+except subprocess.CalledProcessError as e:
+    print e.output
+    exit()
 
 print "removed %s queues from vhost %s" % (count, VHOST)
