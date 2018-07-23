@@ -10,7 +10,7 @@ you can download script
 ```shell
 $ wget https://raw.githubusercontent.com/yaboroda/queue_killer/master/queue_killer;
 $ chmod ug+x queue_killer;
-$ sudo mv queue_killer /usr/bin/queue_killer;
+$ sudo mv ./queue_killer /usr/bin/;
 ```
 or clone repo
 ```shell
@@ -21,7 +21,7 @@ $ sudo ln -s $(pwd)/queue_killer /usr/bin/queue_killer
 
 #### Usage
 ```shell
-$ queue_killer VIRTUAL_HOST [USERNAME] [PASSWORD];
+$ sudo queue_killer VIRTUAL_HOST [USERNAME] [PASSWORD];
 ```
 VIRTUAL_HOST - name of rabbitmq virtual host
 USERNAME - username with "administrator" access, default value "guest"
